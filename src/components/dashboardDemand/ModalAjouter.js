@@ -4,10 +4,12 @@ import { IconCloseModal } from '../svg/mainIcons';
 import Flatpickr from "react-flatpickr";
 import Select from "react-select"
 import DatePicker from "react-datepicker";
+import DateTimePicker from 'react-datetime-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import { MapWithCircle } from '../map/MapWithCircle';
 import { MapWithMarker } from '../map/MapWithMarker'
 import { customAlphabet } from 'nanoid'
+import MapBox from '../map/MapBox';
 const nanoid = customAlphabet('1234567890abcdef', 5)
 
 
@@ -15,12 +17,12 @@ const nanoid = customAlphabet('1234567890abcdef', 5)
 
 
 const ModalAjouter = ({ openModalHook, setListDemandes, listDemandes }) => {
-
-
-    const [startDate, setStartDate] = useState(new Date());
+   
+  
+    const [startDate, setStartDate] = useState( new Date());
 
     let handleColor = time => {
-        return time.getHours() > 12 ? "text-success" : "text-error"
+      return time.getHours() > 12 ? "text-success" : "text-error"
     }
 
 
@@ -29,12 +31,12 @@ const ModalAjouter = ({ openModalHook, setListDemandes, listDemandes }) => {
         console.log({ startDate })
     },
         [startDate])
-    const [mounted, setMounted] = useState(true);
-
-    const toggle = () => setMounted(!mounted);
+        const [mounted, setMounted] = useState(true);
+      
+        const toggle = () => setMounted(!mounted);
     const [openModal, setOpenModal] = openModalHook
 
-
+   
 
 
     const [position, setPosition] = useState({ lat: 35.6475, lng: -5.7886 });
@@ -49,19 +51,19 @@ const ModalAjouter = ({ openModalHook, setListDemandes, listDemandes }) => {
         typeActivity: {
             id: 1,
             title: "",
-
+            
         },
 
-        date: new Date(),
+ date:new Date(),
+ 
 
-
-        localisation: {
-            lng: -5.2,
-            lat: -3.2
+        localisation:{
+            lng:-5.2,
+            lat:-3.2
         }
-
-        ,
-        description: "pas de description disponible"
+        
+      ,
+      description:"pas de description disponible"
 
     })
     const [etape, SetEtape] = useState(1);
@@ -87,7 +89,7 @@ const ModalAjouter = ({ openModalHook, setListDemandes, listDemandes }) => {
         }
 
 
-
+        
     }, [])
 
     return (
@@ -113,40 +115,47 @@ const ModalAjouter = ({ openModalHook, setListDemandes, listDemandes }) => {
                             </div>
                         </div>
                     }
-
-                    {etape == 2 &&
+                 
+                 {etape == 2 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
-                            <h2 className="text-gray-800 font-semibold  ">Etape 2 : choisir une   localisation:</h2>
-                            <MapWithMarker positionHook={[position, setPosition]} />
+                            <h2 className="text-gray-800 font-semibold  ">Etape 3 : choisir une   localization:</h2>
+
+                            {/* <MapWithMarker positionHook={[position, setPosition]} /> */}
+
+
+                            <MapBox setPosition={setPosition} position={position} />
+
+
+
                         </div>
                     }
                     {etape == 3 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
                             <h2 className="text-gray-800 font-semibold ">Etape 3 : Veuillez décrire votre demande </h2>
                             <div>
-                                <textarea
-                                    onChange={e => setChoosedData({ ...choosedData, description: e.target.value })}
-
-                                    name="comments" id="comments" cols="80" rows="4" class="bg-gray-200  m-8" placeholder="Description de la demande">
-                                </textarea>
+                            <textarea
+                            onChange={e=>setChoosedData({...choosedData,description:e.target.value})}
+                            
+                            name="comments" id="comments" cols="80" rows="4" class="bg-gray-200  m-8"  placeholder="Description de la demande">
+                            </textarea>
                             </div>
                         </div>
                     }
                     {etape == 4 &&
                         <div className="TypeActivite flex flex-col items-center flex-1 space-y-5 justify-center ">
                             <h2 className="text-gray-700 ">Etape 4 : choisir votre cadre temporel:</h2>
-
+                    
                             <div className="flex space-x-4 items-center">
-                                <DatePicker
-                                    showTimeSelect
+                            <DatePicker
+      showTimeSelect
+    
+      selected={startDate}
+      onChange={date =>{ setStartDate(date);setChoosedData({...choosedData,date:date }) }}
+      timeClassName={handleColor}
 
-                                    selected={startDate}
-                                    onChange={date => { setStartDate(date); setChoosedData({ ...choosedData, date: date }) }}
-                                    timeClassName={handleColor}
-
-                                />
-                                <p>{handleColor}</p>
-
+    />
+    <p>{handleColor}</p>
+                          
 
                             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaHandsHelping } from "react-icons/fa"
 import { FiUser, FiPhone, FiMap } from "react-icons/fi"
 import { BsLock } from "react-icons/bs"
@@ -26,11 +26,12 @@ const handleRegister = (email, password, agree, otherData, setMessage) => {
 
 
 
-        axios.post(url.local, {
+        axios.post(url.remote, {
             email: email,
             password: password,
             ...otherData
-        }).then(res => {
+        }).then(
+            res => {
             console.log(res.data)
             if (res.data)
                 setTimeout(() => { setMessage(<div className="text-green-500  flex items-center  gap-2"> <GiCheckMark />successfully register ! Welcome   </div>) }, 2000)
@@ -60,8 +61,26 @@ const Register = () => {
     const [agree, setAgree] = useState(false)
     const [message, setMessage] = useState(null)
 
+    useEffect(() => {
+        setMessage(<p class="text-black text-center">entrain de rechercher...</p>)
+if (email.length==0 )
+setMessage('')
+else{
+        axios.get('https://helpify-back.herokuapp.com/findUser?email='+email)
+        .then(res=>{
+            if(res.data){
+                setMessage(<p class="text-red-600 text-center"> 
+                Mail déjà existant</p>)
+            }
+            else {
+                setMessage()
 
 
+            }
+      
+        })
+    }
+    }, [email])
     return (
         <div className=" flex flex-wrap h-screen " style={{ fontFamily: "Montserrat" }} >
             <div className="md:w-1/2 w-full border flex flex-col justify-center items-center space-y-4  py-12 gap-3  ">
@@ -93,6 +112,7 @@ const Register = () => {
                         <FiUser className="text-gray-200 mr-3" />
                         <input onChange={(evt) => setEmail(evt.target.value)} type="text" className="focus:outline-none placeholder-gray-300 " placeholder="email" />
                     </div>
+                    {message}
 
                     <div className="border border-gray-400 flex  items-center   p-3 rounded-3xl md:w-96">
                         <BsLock className="text-gray-200 mr-3" />
@@ -154,7 +174,6 @@ const Register = () => {
             {/* <div className="md:w-1/2 w-full object-fit border    bg-blue-500    " style={{}} >
                 <p className="p-20  bg-register   ">hamid</p>
                 <img src={RegisterImg} className="  bg-cover " />
-
             </div> */}
 
         </div >
