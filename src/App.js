@@ -11,6 +11,9 @@ import Dashboard from "./Dashboard";
 import DashboardHelper from "./DashboardHelper";
 import ZTest from "./components/zTest";
 
+import About from "./components/About"
+import ForgetPassword  from "./components/ForgetPassword"
+
 function App() {
   return (
 
@@ -25,6 +28,9 @@ function App() {
 
       <DashboardHelper path="/DashboardHelper" />
       <ZTest path="/test" />
+      <About path="/About" />
+      <ForgetPassword path="/ForgetPassword" />
+
 
     </Router>
 

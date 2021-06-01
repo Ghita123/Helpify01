@@ -40,7 +40,7 @@ function Login() {
         setMessage(<GiSwordSpin size="30px" className="animate-spin text-purple-600" />)
 
 
-        axios.get(`${url.local}?email=${email}&password=${motdepasse}`)
+        axios.get(`${url.remote}?email=${email}&password=${motdepasse}`)
             .then(res => {
                 console.log(res.data)
                 if (res.data)
@@ -113,7 +113,9 @@ function Login() {
                         Login
               </button>
 
-
+              <Link to="/ForgetPassword" >
+          <div className="text-sm text-gray-400">forget password? </div>
+          </Link>
                     <div className="text-sm text-gray-400">
                         Not a user yet ? <Link to="/register"> <span className="cursor-pointer" style={{ color: "#6F4BFF" }}> Register Here</span></Link>
                     </div>

@@ -5,6 +5,11 @@ import { BiMapPin } from "react-icons/bi"
 import { FaHandsHelping } from "react-icons/fa"
 import Modal from './Modal'
 import ModalEdit from "./ModalEdit"
+import axios from 'axios'
+import { nanoid } from 'nanoid'
+import { dataDays } from '../../data/dataModalAjouter'
+import MapBox from '../map/MapBox'
+import StaticMapbox from "../map/StaticMapbox"
 
 
 
@@ -96,6 +101,11 @@ const Disponibilte = ({ id, data, listDemandes, setListDemandes }) => {
     </div>
 
 
+</div>
+<div className="Localisation">
+                    <p className="capitalize text-sm text-gray-400 " style={{ fontWeight: "500" }}>Localisation</p>
+
+                    <StaticMapbox localisationX={data.localisationX} localisationY={data.localisationY} />
 </div>
 
                 </div>

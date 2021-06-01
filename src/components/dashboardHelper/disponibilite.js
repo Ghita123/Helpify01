@@ -102,15 +102,6 @@ const Disponibilte = ({ id, data, listOffres, setListOffres, userInfo, setRefres
                             <p >{data.moyen_de_transport}</p>
 
                         </div>
-
-
-                        {/* <div className="flex items-center space-x-2 text-blue-600  capitalize text-lg" >
-                            <MdDirectionsWalk className="w-6 h-6" />
-                            <p>a pied</p>
-
-
-
-                        </div> */}
                     </div>
                 </div>
 
