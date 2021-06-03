@@ -14,6 +14,8 @@ import ZTest from "./components/zTest";
 import About from "./components/About"
 import ForgetPassword  from "./components/ForgetPassword"
 
+import Testnot from "./Testnot"
+
 function App() {
   return (
 
@@ -30,6 +32,7 @@ function App() {
       <ZTest path="/test" />
       <About path="/About" />
       <ForgetPassword path="/ForgetPassword" />
+      <Testnot path="/Testnot"/>
 
 
     </Router>
@@ -38,3 +41,4 @@ function App() {
 }
 
 export default App;
+

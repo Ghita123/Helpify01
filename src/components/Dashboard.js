@@ -2,20 +2,19 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Disponibilte from './components/dashboardDemand/disponibilite'
 import Navbar from './components/navbar2'
+import { BsPencilSquare } from "react-icons/bs"
 import { IconAdd } from './components/svg/mainIcons'
 import ModalAjouter from './components/dashboardDemand/ModalAjouter'
-import ModalMatchingOffres from './components/dashboardDemand/ModalMatchingHelper'
+import { dataOffres } from './data/dataHelper'
 
 const Dashboard = () => {
-
-    
-
 
     const [userInfo, setUserInfo] = useState({ id: 1, name: "hamid" });
     const [openModal, setOpenModal] = useState(false)
     const [listDemandes, setListDemandes] = useState([])
 
-    const [openModalOffreMatching, setOpenModalMatching] = useState(false)
+    const [refresh, setRefresh] = useState(1)
+
 
     useEffect(() => {
 
@@ -31,11 +30,12 @@ const Dashboard = () => {
 
                 setUserInfo(res.data)
                 setListDemandes(res.data.demandes)
+                console.log(res.data)
             })
 
 
 
-    }, [])
+    }, [refresh])
 
 
 
@@ -56,7 +56,7 @@ const Dashboard = () => {
                         <span className="text-gray-400 capitalize">Bonjour</span>
 
                         <h2 className="text-lg  md:text-2xl uppercase   text-gray-600 italic" style={{ fontWeight: "700" }}>
-                            {userInfo.prenom}, {userInfo.nom} 
+                            {userInfo.prenom}, {userInfo.nom}
                         </h2>
                     </div>
 
@@ -66,16 +66,9 @@ const Dashboard = () => {
                     </button>
                     {
                         openModal &&
-                        <ModalAjouter openModalHook={[openModal, setOpenModal]} setListDemandes={setListDemandes} userInfo = {userInfo} listDemandes={listDemandes} />
+                        <ModalAjouter setRefresh={setRefresh} openModalHook={[openModal, setOpenModal]} setListDemandes={setListDemandes} listDemandes={listDemandes} userInfo={userInfo} />
 
                     }
-
-{
-
-openModalOffreMatching&&
-<ModalMatchingOffres  openModalHook={[openModalOffreMatching,setOpenModalMatching]} />
-}
-
                 </div>
 
 
@@ -87,10 +80,10 @@ openModalOffreMatching&&
 
                         {
                             listDemandes.map(item => (
-                                <Disponibilte    id={item.id} data={item} listDemandes={listDemandes} setListDemandes={setListDemandes} setOpenModalOffres={setOpenModalMatching} userInfo={userInfo} />
+                                <Disponibilte id={item.id} setRefresh={setRefresh} data={item} listDemandes={listDemandes} setListDemandes={setListDemandes} userInfo={userInfo}  />
 
                             ))
-                        }
+                            }
 
                         {listDemandes.length == 0 && <p className="text-sm font-semibold p-5 text-gray-500">Vous n'avez pas encore de demandes , Cliquer sur 'Nouvelle Demande' pour ajouter une ! </p>}
 

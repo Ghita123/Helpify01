@@ -17,9 +17,7 @@ const Comment = () => {
                 Comment ca marche?
             </h1>
 
-            <div className="text-lg  text-gray-700 p-8 ">
-                Choisir un type d'activite:
-            </div>
+           
 
 
             <div className="flex flex-wrap  md:space-x-12  w-full md:space-y-0 space-y-20    px-2 justify-center">
